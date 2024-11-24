@@ -21,11 +21,11 @@ export class CategoriaDialogComponent {
   titleButton = "Guardar";
   actionTODO = Action.NEW;
   categoria: Categoria[] = [];
+
   userForm = this.fb.group({
-    cveCategoria: ['', [Validators.required]], 
-    nombre: ['', [Validators.required, Validators.minLength(3)]],
-    activo: [true, [Validators.required]], 
+    cveCategoria: [''], 
     descripcion: ['', [Validators.required, Validators.minLength(3)]],
+    activo: [true, [Validators.required]], 
   });
 
   constructor(
@@ -50,9 +50,8 @@ export class CategoriaDialogComponent {
     if (this.data.user?.cveCategoria) { 
       this.userForm.patchValue({
         cveCategoria: this.data.user.cveCategoria,
-        nombre: this.data.user.nombre,
-        activo: this.data.user.activo,
         descripcion: this.data.user.descripcion,
+        activo: this.data.user.activo,
       });
 
       
@@ -74,7 +73,6 @@ export class CategoriaDialogComponent {
 
     const formValue = this.userForm.getRawValue();
     const categoria: Categoria = {
-      nombre: formValue.nombre!,
       descripcion: formValue.descripcion!,
       activo: formValue.activo!,
       cveCategoria: parseInt (formValue.cveCategoria!)
@@ -88,7 +86,6 @@ export class CategoriaDialogComponent {
         });
       }else{
         var updateUser : Categoria ={
-          nombre: formValue.nombre!,
           activo: formValue.activo!,
           cveCategoria: parseInt(formValue.cveCategoria!),
           descripcion: formValue.descripcion!
@@ -109,5 +106,6 @@ export class CategoriaDialogComponent {
   ngOnDestroy(): void {
     this.destroy$.next({});
     this.destroy$.complete();
-  }
+
+  }
 }

@@ -3,22 +3,25 @@
     <form [formGroup]="userForm" (submit)="onSave()">
         <mat-form-field class="full-width" appearance="outline">
             <mat-label>Nombre de la categoria</mat-label>
-            <input type="text" matInput formControlName="nombre">
+            <input type="text" matInput formControlName="descripcion">
             <mat-error>
-                {{baseForm.getErrorMessage(userForm.get('nombre'))}}
+                {{baseForm.getErrorMessage(userForm.get('descripcion'))}}
             </mat-error>
         </mat-form-field>
 
         <mat-form-field class="full-width" appearance="outline">
             <mat-label>Estatus</mat-label>
-            <input type="text" matInput formControlName="activo">
+            <mat-select formControlName="activo">
+                <mat-option [value]="true">Activo</mat-option>
+                <mat-option [value]="false">Inactivo</mat-option>
+              </mat-select>
             <mat-error>
                 {{baseForm.getErrorMessage(userForm.get('activo'))}}
             </mat-error>
         </mat-form-field>
 
             <div align="center">
-                <button type="submit" mat-flat-button color="primary" class="me-2" [disabled]="userForm.invalid">
+                <button type="submit" mat-flat-button color="primary" class="me-2">
                 {{titleButton}}
                 </button>
 

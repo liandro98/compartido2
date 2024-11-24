@@ -1,42 +1,81 @@
 <h3 class="m-3">Categorias</h3>
 
 <div align="right">
-    <button mat-flat-button color="primary" class="m-2" (click)="agregarCategoria(nuevaCategoria)">
-        <mat-icon>add</mat-icon>
-        Agregar
-    </button>
+  <button mat-flat-button color="primary" class="m-2" (click)="agregarCategoria()">
+    <mat-icon>add</mat-icon> Agregar
+  </button>
 </div>
 
+<mat-tab-group mat-align-tabs="start" mat-stretch-tabs="false">
+  <mat-tab label="Listado">
+    
 <div class="table-content mat-elevation-z8 m-4">
-    <table mat-table [dataSource]="dataSource">
-        <!-- NOMBRE DE CATEGORIA -->
-        <ng-container matColumnDef="nombre">
-            <th mat-header-cell *matHeaderCellDef>Nombre de la categoria</th>
-            <td mat-cell *matCellDef="let categoria">{{categoria.descripcion}}</td>
-        </ng-container>
-        <!-- ESTATUS -->
-        <ng-container matColumnDef="estatus">
-            <th mat-header-cell *matHeaderCellDef>Estatus</th>
-            <td mat-cell *matCellDef="let categoria">
-                <button mat-icon-button (click)="cambiarEstatus(categoria)">
-                    <mat-icon [className]="categoria.activo ? 'green-icon' : 'red-icon'">
-                    {{categoria.activo ? 'check_circle': 'cancel'}}</mat-icon>
-                </button>
-            </td>
-        </ng-container>
-        <!-- ACCIONES -->
-        <ng-container matColumnDef="acciones">
-            <th mat-header-cell *matHeaderCellDef>Acciones</th>
-            <td mat-cell *matCellDef="let categoria">
-                <button mat-flat-button color="accent" class="me-2">
-                    <mat-icon>edit</mat-icon>
-                    Editar
-                </button>
-                <button mat-flat-button color="warn" (click)="eliminarCategoria(categoria)">
-                    <mat-icon>delete</mat-icon>
-                    Eliminar
-                </button>
-            </td>
-        </ng-container>
-    </table>
+  <table mat-table [dataSource]="dataSource">
+    <!-- Descripcion -->
+    <ng-container matColumnDef="descripcion">
+      <th mat-header-cell *matHeaderCellDef>Nombre de la categoria</th>
+      <td mat-cell *matCellDef="let categoria">{{categoria.descripcion}}</td>
+    </ng-container>
+
+    <!-- Estatus -->
+    <ng-container matColumnDef="estatus">
+      <th mat-header-cell *matHeaderCellDef>Estatus</th>
+      <td mat-cell *matCellDef="let categoria">
+        <button mat-icon-button (click)="cambiarEstatus(categoria)">
+          <mat-icon [className]="categoria.activo ? 'green-icon' : 'red-icon'">
+            {{ categoria.activo ? 'done' : 'close' }}
+          </mat-icon>
+        </button>
+      </td>
+    </ng-container>
+    
+
+    <!-- Acciones -->
+    <ng-container matColumnDef="acciones">
+      <th mat-header-cell *matHeaderCellDef>Acciones</th>
+      <td mat-cell *matCellDef="let categoria">
+        <button mat-flat-button color="accent" class="me-2" (click)="editarCategoria()">
+          <mat-icon>edit</mat-icon> Editar
+        </button>
+        <button mat-flat-button color="warn" (click)="eliminarCategoria(categoria)">
+          <mat-icon>delete</mat-icon> Eliminar
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
 </div>
+  </mat-tab>
+  <mat-tab label="Registro">
+    <mat-card class="card-registro">
+    <form [formGroup]="userForm" (ngSubmit)="agregarCategoria2()">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Nombre de la categoría</mat-label>
+        <input matInput formControlName="descripcion">
+        <mat-error *ngIf="userForm.get('descripcion')?.invalid">
+          {{ userForm.get('descripcion')?.hasError('required') ? 'Campo obligatorio' : 'Mínimo 3 caracteres' }}
+        </mat-error>
+      </mat-form-field>
+    
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Estatus</mat-label>
+        <mat-select formControlName="activo">
+          <mat-option [value]="true">Activo</mat-option>
+          <mat-option [value]="false">Inactivo</mat-option>
+        </mat-select>
+      </mat-form-field>
+    
+      <div class="action-buttons" align="center">
+        <button mat-flat-button color="primary" type="submit"(click)="agregarCategoria2()"><
+          {{ titleButton }}
+        </button>
+        <button mat-flat-button color="warn" type="button" (click)="userForm.reset()">Limpiar</button>
+      </div>
+    </form>
+  </mat-card>
+  </mat-tab>
+</mat-tab-group>
+
+
