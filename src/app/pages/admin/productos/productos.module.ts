@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { ProductosRoutingModule } from './productos-routing.module';
 import { ProductosComponent } from './productos.component';
+import { MaterialModule } from '../../../material.module';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { ProductosComponent } from './productos.component';
   ],
   imports: [
     CommonModule,
-    ProductosRoutingModule
+    ProductosRoutingModule,
+    MaterialModule
   ]
 })
 export class ProductosModule { }

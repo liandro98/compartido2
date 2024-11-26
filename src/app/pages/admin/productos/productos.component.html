@@ -1,1 +1,78 @@
-<p>productos works!</p>
+<h3 class="m-3">Productos</h3>
+<mat-tab-group mat-align-tabs="start" mat-stretch-tabs="false">
+    <mat-tab label="Listado">
+        <!-- Nombre del producto-->
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            <ng-container matColumnDef="descripcion">
+              <th mat-header-cell *matHeaderCellDef> Descripción </th>
+              <td mat-cell *matCellDef="let producto"> {{producto.descripcion}} </td>
+            </ng-container>
+          
+            <ng-container matColumnDef="precio">
+              <th mat-header-cell *matHeaderCellDef> Precio </th>
+              <td mat-cell *matCellDef="let producto"> {{producto.precio}} </td>
+            </ng-container>
+          
+            <ng-container matColumnDef="cantidad">
+              <th mat-header-cell *matHeaderCellDef> Cantidad </th>
+              <td mat-cell *matCellDef="let producto"> {{producto.cantidad}} </td>
+            </ng-container>
+
+            <!-- Acciones -->
+            <ng-container matColumnDef="acciones">
+                <th mat-header-cell *matHeaderCellDef>Acciones</th>
+                <td mat-cell *matCellDef="let producto">
+                <button mat-flat-button color="accent" class="me-2" (click)="editarFormulario(producto)">
+                    <mat-icon>edit</mat-icon> Editar
+                </button>
+                <button mat-flat-button color="warn" (click)="eliminarProducto(producto)">
+                    <mat-icon>delete</mat-icon> Eliminar
+                </button>
+                </td>
+            </ng-container>
+          
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>          
+    </mat-tab>
+    <mat-tab label="Registro">
+        <form [formGroup]="formProducto" (ngSubmit)="registrarProducto()">
+          <!-- Campos del formulario -->
+          <mat-form-field appearance="fill">
+            <mat-label>Descripción</mat-label>
+            <input matInput formControlName="descripcion" />
+          </mat-form-field>
+      
+          <mat-form-field appearance="fill">
+            <mat-label>Precio</mat-label>
+            <input matInput formControlName="precio" type="number" />
+          </mat-form-field>
+      
+          <mat-form-field appearance="fill">
+            <mat-label>Cantidad</mat-label>
+            <input matInput formControlName="cantidad" type="number" />
+          </mat-form-field>
+      
+          <mat-form-field appearance="fill">
+            <mat-label>Categoría</mat-label>
+            <mat-select formControlName="cveCategoria">
+              <mat-option *ngFor="let categoria of categorias" [value]="categoria.cveCategoria">
+                {{ categoria.descripcion }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+      
+          <!-- Botón para guardar producto -->
+          <button mat-raised-button color="primary" type="submit">
+            {{ productoEditando ? 'Editar Producto' : 'Guardar Producto' }}
+          </button>
+      
+          <!-- Botón de cancelar -->
+          <button mat-raised-button color="warn" type="button" (click)="cancelarEdicion()">
+            Cancelar
+          </button>
+        </form>
+      </mat-tab>
+      
+      
+</mat-tab-group>

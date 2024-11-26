@@ -1,0 +1,44 @@
+.green-icon{
+    color: darkgreen;
+}
+
+.card-registro {
+    text-align: center;
+    max-width: 500px;
+  }
+
+.red-icon{
+    color: darkred;
+}
+
+.form-wrapper {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    height: 100%; /* Usa todo el alto del contenedor */
+    min-height: 500px; /* Altura mínima */
+  }
+  
+  .form-container {
+    display: flex;
+    flex-direction: column; /* Campos en columna */
+    gap: 16px; /* Espaciado entre campos */
+    width: 100%;
+    max-width: 400px; /* Ancho máximo del formulario */
+    padding: 24px; /* Espaciado interno opcional */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Opcional: sombra */
+    border-radius: 8px; /* Bordes redondeados */
+    background: #fff; /* Fondo blanco */
+  }
+  
+  .form-field {
+    width: 100%;
+  }
+  
+  .form-actions {
+    display: flex;
+    justify-content: center; /* Centra el botón con el formulario */
+    margin-top: 16px;
+  }
+  
+  
